@@ -1,0 +1,57 @@
+{% extends 'admin/master.html'%}
+
+{% block head_css %}
+{{super()}}
+<style>
+img {
+  width: 50px,
+  height: 50px
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+{% endblock head_css %}
+
+{% block body %}
+<p>Here is my variable: {{ count }}</p>
+<ol>
+<!-- For loop logic of jinja template -->
+<!--{%for i in range(1)%}
+
+
+  <li><img src="{{url_for('static', filename=im[i])}}" /></li>
+{%endfor%}-->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for i in range(3) %}
+            <tr>
+                <td>  <li><img src="{{url_for('static', filename=im[i][0])}}" /></li></td>
+                <td>{{im[i][1]}}</td>
+                <td><a href="/redirect?var={{im[i][0]}}">Register Face</a></td>
+
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</ol>
+{% endblock body %}

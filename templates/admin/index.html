@@ -1,0 +1,21 @@
+{% extends 'admin/master.html'%}
+
+{% block head_css %}
+{{super()}}
+<style>
+    body {
+background-image: url({{ url_for('static', filename='css_pattern2.png') }})
+}
+p{
+  background-color: #f44336;
+  color: white;
+  padding: 14px 25px;
+  display: inline-block;
+}
+</style>
+{% endblock head_css %}
+
+{% block body %}
+<p style="display:inline-block;margin-right:10px; width:200px;">The number of faces detected: {{detected_count}}</p>
+<p style="display:inline-block; width:200px;">The number of faces unrecognised: {{ unknown_count}}</p>
+{% endblock body %}

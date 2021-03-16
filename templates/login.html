@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+body {
+background-image: url({{ url_for('static', filename='css_pattern2.png') }})
+}
+a:link, a:visited {
+  background-color: #f44336;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: red;
+}
+h1 {
+  text-align: center;
+}
+</style>
+    <meta charset="UTF-8">
+    <title>Home Page!</title>
+    <h1> Face Recognition</h1>
+
+
+</head>
+<body>
+    <p> Face Recognition</p>
+
+
+
+    <h1><a href="/sign_in">Sign In</a></h1>
+</body>
