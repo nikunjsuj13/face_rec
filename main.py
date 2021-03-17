@@ -49,7 +49,7 @@ def train():
         image = cv2.imread(imagePath)
         rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         # Use Face_recognition to locate faces
-        boxes = face_recognition.face_locations(rgb, model='hog')
+        boxes = face_recognition.face_locations(rgb, model='cnn')
         # compute the facial embedding for the face
         encodings = face_recognition.face_encodings(rgb, boxes)
         # loop over the encodings
@@ -59,6 +59,7 @@ def train():
     # save emcodings along with their names in dictionary data
     data = {"encodings": knownEncodings, "names": knownNames}
     # use pickle to save data into a file for later use
+    print('training done....')
     f = open("face_enc", "wb")
     f.write(pickle.dumps(data))
     f.close()
@@ -71,22 +72,7 @@ def index():
 @app.route("/success",methods=["POST", "GET"])
 def success():
    return render_template('login.html')
-'''
-def gen(camera):
-    counter=1
-    while counter<101:
-        data=camera.get_frame()
-        frame=data[0]
-        nparr = np.fromstring(frame, np.uint8)
-        img_np = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-        cv2.imwrite("dataset/unknown/test1"+str(counter)+'.jpg',img_np)
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n'+frame+b'\r\n\r\n')
-        counter+=1
-        if counter==100:
-            del camera
-            break
-'''
+
 @app.route("/d1",methods=["POST", "GET"])
 def gen_frames():
 
@@ -99,8 +85,6 @@ def gen_frames():
     data = pickle.loads(open('face_enc', "rb").read())
 
     camera = cv2.VideoCapture(0)
-    fourcc = cv2.VideoWriter_fourcc(*'MPEG')
-    out = cv2.VideoWriter('output.avi', fourcc, 50, (1080, 720))
     while count!=100:
         conn = sqlite3.connect("face_rec.db")
         cursor = conn.cursor()
@@ -182,7 +166,6 @@ def gen_frames():
         if not success:
             break
         else:
-            out.write(frame)
 
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()

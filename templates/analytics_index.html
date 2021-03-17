@@ -39,15 +39,15 @@ th {
     <thead>
     <tr>
         <th>ID</th>
-        <th>Name</th>
+        <th>Time</th>
     </tr>
     </thead>
     <tbody>
-        {% for i in range(3) %}
+        {% for i in im %}
             <tr>
-                <td>  <li><img src="{{url_for('static', filename=im[i][0])}}" /></li></td>
-                <td>{{im[i][1]}}</td>
-                <td><a href="/redirect?var={{im[i][0]}}">Register Face</a></td>
+                <td>  <li><img src="{{url_for('static', filename=i[0])}}" /></li></td>
+                <td>{{i[1]}}</td>
+                <td><a href="/redirect?var={{i[0]}}">Register Face</a></td>
 
             </tr>
         {% endfor %}
